@@ -17,9 +17,11 @@ use App\Http\Controllers\ComicController;
 */
 
 Route::get('/', function () {
-  
-    return view('home', []);
-});
+    return view('home');
+})->name('homepage');
+
 
 
 Route::resource('comics', ComicController::class);
+// Route::get('/comics', 'ComicController@index')->name('comics.index');
+
