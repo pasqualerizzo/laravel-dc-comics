@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('thumb', 1024)->nullable();
             $table->string('title', 128);
             $table->string('type', 16);
-            $table->string('writers', 64)->nullable();
+            $table->json('writers')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });
