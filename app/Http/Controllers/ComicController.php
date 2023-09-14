@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 // Models
@@ -14,7 +15,7 @@ class ComicController extends Controller
      */
     public function index()
     {
-        $comics = comic::all();
+        $comics = Comic::all();
 
         return view('comics.index', compact('comics'));
     }
@@ -32,7 +33,7 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //    
     }
 
     /**
