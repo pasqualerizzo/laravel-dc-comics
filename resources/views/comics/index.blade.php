@@ -5,14 +5,14 @@
 @section('main-content')
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col text-center">
             <h1>Comics</h1>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <table class="table table-striped">
+            <table class="table table-striped border border-3">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -20,6 +20,7 @@
                         <th scope="col">Titolo</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Descrizione</th>
+                        <th scope="col">Writers</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,9 +30,15 @@
                             <td>
                                 <img src="{{ $comic->thumb }}" alt="{{ $comic->title }}" class="img-fluid" style="max-width: 150px;">
                             </td>
-                            <td>{{ $comic->title }}</td>
+                            <td class="text-center">{{ $comic->title }}</td>
                             <td>{{ $comic->type }}</td>
                             <td>{{ $comic->description }}</td>
+                            <td>{{ $comic->writers }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">
+                                    Visualizza
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
