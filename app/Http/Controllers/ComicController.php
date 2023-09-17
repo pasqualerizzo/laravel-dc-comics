@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 // Models
-use App\Models\comic;
+use App\Models\Comic;
 
 class ComicController extends Controller
 {
@@ -25,7 +25,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('comics.create');
     }
 
     /**
@@ -33,15 +33,19 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //    
+        $formData = $request->all();
+
+        $comic = Comic::create($formData);
+
+        return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comic $comic)
     {
-        //
+        return view('comics.show', compact('comic'));
     }
 
     /**
@@ -49,7 +53,9 @@ class ComicController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+
+        return view('comics.edit', compact('comic'));
     }
 
     /**
@@ -57,7 +63,13 @@ class ComicController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+
+        $formData = $request->all();
+
+        $comic->update($formData);
+
+        return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
 
     /**
@@ -65,6 +77,10 @@ class ComicController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+
+        $comic->delete();
+
+        return redirect()->route('comics.index');
     }
 }

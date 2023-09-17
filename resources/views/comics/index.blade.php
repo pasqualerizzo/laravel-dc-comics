@@ -21,6 +21,7 @@
                         <th scope="col">Tipo</th>
                         <th scope="col">Descrizione</th>
                         <th scope="col">Writers</th>
+                        <th scope="col">Azioni</th> <!-- Aggiunto questa colonna -->
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +36,24 @@
                             <td>{{ $comic->description }}</td>
                             <td>{{ $comic->writers }}</td>
                             <td>
-                                <button type="button" class="btn btn-primary">
+                                <a href="{{ route('comics.show', ['comic' => $comic->id]) }}" class="btn btn-primary">
                                     Visualizza
-                                </button>
+                                </a>
+                                <a href="{{ route('comics.edit', ['comic' => $comic->id]) }}" class="btn btn-warning">
+                                    Modifica
+                                </a>
+                                <form action="{{ route('comics.destroy', ['comic' => $comic->id]) }}" 
+                                    method="POST" 
+                                    style="display: inline-block;"
+                                    onsubmit="return confirm('Sei sicuro di voler cancellare questo elemento?');"
+                                    >
+                                    
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        Elimina
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
