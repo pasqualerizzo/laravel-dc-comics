@@ -10,6 +10,10 @@
         </div>
     </div>
 
+    <div class="col text-end">
+        <a href="{{ route('comics.create') }}" class="btn btn-success">Crea Comic</a>
+    </div>
+
     <div class="row">
         <div class="col-12">
             <table class="table table-striped border border-3">
