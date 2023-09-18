@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-// Models
+use App\Http\Controllers\Controller;
 use App\Models\Comic;
 
 class ComicController extends Controller
@@ -33,9 +31,26 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $formData = $request->all();
+        $request->validate([
+            'title' => 'required|max:128',
+            'description' => 'nullable',
+            'thumb' => 'nullable|max:1024',
+            'type' => 'required|max:16',
+            'writers' => 'nullable|json',
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.max' => 'Il titolo non può essere più lungo di 128 caratteri',
+            'type.required' => 'Il tipo è obbligatorio',
+            'type.max' => 'Il tipo non può essere più lungo di 16 caratteri',
+        ]);
 
-        $comic = Comic::create($formData);
+        $comic = new Comic();
+        $comic->title = $request->input('title');
+        $comic->description = $request->input('description');
+        $comic->thumb = $request->input('thumb');
+        $comic->type = $request->input('type');
+        $comic->writers = $request->input('writers');
+        $comic->save();
 
         return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
@@ -65,9 +80,25 @@ class ComicController extends Controller
     {
         $comic = Comic::findOrFail($id);
 
-        $formData = $request->all();
+        $request->validate([
+            'title' => 'required|max:128',
+            'description' => 'nullable',
+            'thumb' => 'nullable|max:1024',
+            'type' => 'required|max:16',
+            'writers' => 'nullable|json',
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.max' => 'Il titolo non può essere più lungo di 128 caratteri',
+            'type.required' => 'Il tipo è obbligatorio',
+            'type.max' => 'Il tipo non può essere più lungo di 16 caratteri',
+        ]);
 
-        $comic->update($formData);
+        $comic->title = $request->input('title');
+        $comic->description = $request->input('description');
+        $comic->thumb = $request->input('thumb');
+        $comic->type = $request->input('type');
+        $comic->writers = $request->input('writers');
+        $comic->save();
 
         return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
